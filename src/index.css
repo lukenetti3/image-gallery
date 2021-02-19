@@ -12,21 +12,36 @@ code {
     monospace;
 }
 
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
 .container {
   max-width: 1000px;
   margin: 2rem auto;
 }
 
-.image-container {
+.grid-container {
   column-count: 3;
   column-gap: 1rem;
 }
 
-.image-container > img {
+.grid-container > img {
   background-color: white;
   display: inline-block;
   margin: 0 0 1rem;
   width: 100%;
+}
+
+.list-container {
+  display: block;
+  text-align: center;
+}
+
+.list-container > img {
+  width: 60%;
 }
 
 .modal {
@@ -53,5 +68,41 @@ code {
   position: fixed;
   top: 50px;
   right: 50px;
+  color: white;
+}
+
+button {
+  font-size: 1rem;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 40px;
+  background: transparent;
+  border: 2px solid white;
+  margin-bottom: 30px;
+}
+
+button:hover {
+  background-color: #f1a793;
+  border: 2px solid #f1a793;
+  cursor: pointer;
+}
+
+.hero-background {
+  background: url("./images/hero-image.jpg") no-repeat center center;
+  height: 600px;
+  background-size: cover;
+  margin-bottom: -200px;
+}
+
+.hero-container {
+  display: flex;
+  width: 600px;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 100px;
+  font-size: 1.5rem;
   color: white;
 }

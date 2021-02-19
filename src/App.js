@@ -2,12 +2,14 @@
 import { createApi } from "unsplash-js"
 import { useState, useEffect } from "react"
 import { RiCloseFill } from "react-icons/ri"
+import Header from "./components/Header"
 
 function App() {
   const [photos, setPhotos] = useState([])
   const [isModal, setIsModal] = useState(false)
   const [modalImage, setModalImage] = useState("")
   const [pageNum, setPageNum] = useState(1)
+  const [isGridView, setIsGridView] = useState(true)
 
   const api = createApi({
     accessKey: "c998EbR5HC_BTOhQ8PPRUBF30o30HM50e-Zw0HPt4Z4",
@@ -59,10 +61,17 @@ function App() {
 
   return (
     <div className='App'>
+      <Header />
       {isModal && renderModal(modalImage)}
-      <div className='container'>
-        <h1 style={{ textAlign: "center" }}>Image Gallery App</h1>
-        <div className='image-container'>
+      <div className='container' style={{ textAlign: "center" }}>
+        <button>Pets</button>
+        <button>Instruments</button>
+        <button>Cars</button>
+        <br />
+        <button onClick={() => setIsGridView(!isGridView)}>
+          {isGridView ? "List View" : "Grid View"}
+        </button>
+        <div className={isGridView ? "grid-container" : "list-container"}>
           {photos.map((photo) => {
             return (
               <img
