@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createApi } from "unsplash-js"
 import { useState, useEffect } from "react"
+import { RiCloseFill } from "react-icons/ri"
 
 function App() {
   const [photos, setPhotos] = useState([])
-  // const [isModal, setIsModal] = useState(false)
-  // const [modalImage, setModalImage] = useState("")
+  const [isModal, setIsModal] = useState(false)
+  const [modalImage, setModalImage] = useState("")
   const [pageNum, setPageNum] = useState(1)
 
   const api = createApi({
@@ -19,7 +20,7 @@ function App() {
   function loadPhotos() {
     api.search
       .getPhotos({
-        query: "dogs",
+        query: "cats",
         page: pageNum,
         perPage: 10,
       })
@@ -38,8 +39,27 @@ function App() {
     }
   }
 
+  function openLightbox(photo) {
+    setIsModal(true)
+    setModalImage(photo)
+  }
+
+  function renderModal(photo) {
+    return (
+      <div className='modal'>
+        <RiCloseFill
+          class='close'
+          onClick={() => setIsModal(false)}
+          size={"3em"}
+        />
+        <img className='modal-img' src={photo.urls.full} alt='' />
+      </div>
+    )
+  }
+
   return (
     <div className='App'>
+      {isModal && renderModal(modalImage)}
       <div className='container'>
         <h1 style={{ textAlign: "center" }}>Image Gallery App</h1>
         <div className='image-container'>
@@ -49,23 +69,12 @@ function App() {
                 src={photo.urls.full}
                 alt={photo.alt_description}
                 key={photo.id}
+                onClick={() => openLightbox(photo)}
               />
             )
           })}
         </div>
       </div>
-      {/* {isModal ? (
-        <div className='lightbox'>
-          <h1>{modalImage.alt_description}</h1>
-          <img
-            src={modalImage.urls.small}
-            alt={modalImage.alt_description}
-            className='lightbox-image'
-          />
-        </div>
-      ) : (
-        ""
-      )} */}
     </div>
   )
 }
