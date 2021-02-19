@@ -4,27 +4,38 @@ import { useState, useEffect } from "react"
 
 function App() {
   const [photos, setPhotos] = useState([])
-  const [isModal, setIsModal] = useState(false)
-  const [modalImage, setModalImage] = useState("")
-  const [pageNum, setPageNum] = useState(0)
+  // const [isModal, setIsModal] = useState(false)
+  // const [modalImage, setModalImage] = useState("")
+  const [pageNum, setPageNum] = useState(1)
 
   const api = createApi({
     accessKey: "c998EbR5HC_BTOhQ8PPRUBF30o30HM50e-Zw0HPt4Z4",
   })
 
   useEffect(() => {
+    loadPhotos()
+  }, [])
+
+  function loadPhotos() {
     api.search
-      .getPhotos({ query: "cats" })
-      .then((result) => setPhotos(result.response.results))
-      .catch(() => {
-        console.log("something is broke")
+      .getPhotos({
+        query: "dogs",
+        page: pageNum,
+        perPage: 10,
       })
-  }, [pageNum])
+      .then((result) => {
+        setPhotos([...photos, ...result.response.results])
+        setPageNum((prevNum) => prevNum + 1)
+      })
+      .catch(() => {
+        console.log("something broke")
+      })
+  }
 
-  const openLightbox = (photo) => {
-    setModalImage(photo)
-
-    setIsModal(true)
+  window.onscroll = function () {
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+      loadPhotos()
+    }
   }
 
   return (
@@ -32,20 +43,18 @@ function App() {
       <div className='container'>
         <h1 style={{ textAlign: "center" }}>Image Gallery App</h1>
         <div className='image-container'>
-          {console.log(photos)}
           {photos.map((photo) => {
             return (
               <img
                 src={photo.urls.full}
                 alt={photo.alt_description}
                 key={photo.id}
-                onClick={() => openLightbox(photo)}
               />
             )
           })}
         </div>
       </div>
-      {isModal ? (
+      {/* {isModal ? (
         <div className='lightbox'>
           <h1>{modalImage.alt_description}</h1>
           <img
@@ -56,14 +65,9 @@ function App() {
         </div>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   )
 }
 
 export default App
-
-// TODO:
-// - Add lightbox to images when clicked
-// - Setup infinite scroll
-// - Change mode between list and grid
