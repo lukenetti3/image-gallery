@@ -10,6 +10,7 @@ function App() {
   const [modalImage, setModalImage] = useState("")
   const [pageNum, setPageNum] = useState(1)
   const [isGridView, setIsGridView] = useState(true)
+  const [category, setCategory] = useState("pets")
 
   const api = createApi({
     accessKey: "c998EbR5HC_BTOhQ8PPRUBF30o30HM50e-Zw0HPt4Z4",
@@ -20,9 +21,10 @@ function App() {
   }, [])
 
   function loadPhotos() {
+    console.log(category)
     api.search
       .getPhotos({
-        query: "cats",
+        query: category,
         page: pageNum,
         perPage: 10,
       })
@@ -33,6 +35,15 @@ function App() {
       .catch(() => {
         console.log("something broke")
       })
+  }
+
+  function loadCategory(item) {
+    setCategory(item)
+    setPageNum(1)
+    setPhotos([])
+    setTimeout(() => {
+      loadPhotos()
+    }, 1000)
   }
 
   window.onscroll = function () {
@@ -50,7 +61,7 @@ function App() {
     return (
       <div className='modal'>
         <RiCloseFill
-          class='close'
+          className='close'
           onClick={() => setIsModal(false)}
           size={"3em"}
         />
@@ -64,9 +75,24 @@ function App() {
       <Header />
       {isModal && renderModal(modalImage)}
       <div className='container' style={{ textAlign: "center" }}>
-        <button>Pets</button>
-        <button>Instruments</button>
-        <button>Cars</button>
+        <button
+          onClick={() => loadCategory("pets")}
+          className='category-selectors'
+        >
+          Pets
+        </button>
+        <button
+          onClick={() => loadCategory("instruments")}
+          className='category-selectors'
+        >
+          Instruments
+        </button>
+        <button
+          onClick={() => loadCategory("cars")}
+          className='category-selectors'
+        >
+          Cars
+        </button>
         <br />
         <button onClick={() => setIsGridView(!isGridView)}>
           {isGridView ? "List View" : "Grid View"}

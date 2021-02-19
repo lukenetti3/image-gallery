@@ -91,7 +91,7 @@ button:hover {
   background: url("./images/hero-image.jpg") no-repeat center center;
   height: 600px;
   background-size: cover;
-  margin-bottom: -200px;
+  margin-bottom: -300px;
 }
 
 .hero-container {
@@ -103,6 +103,10 @@ button:hover {
   align-items: center;
   text-align: center;
   padding-top: 100px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: white;
+}
+
+.category-selectors {
+  margin: 0 1rem 2rem 1rem;
 }
