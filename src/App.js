@@ -40,15 +40,15 @@ function App() {
   function loadCategory(item) {
     setCategory(item)
     setPageNum(1)
-    setPhotos([])
     setTimeout(() => {
-      loadPhotos()
-    }, 1000)
+      setPhotos([])
+    }, 500)
   }
 
   window.onscroll = function () {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-      loadPhotos()
+      console.log("bottom")
+      return loadPhotos()
     }
   }
 
@@ -115,3 +115,8 @@ function App() {
 }
 
 export default App
+
+// TODO:
+// - get categories working
+// - add hover and box shadow to images
+// - look into bottom scrolling

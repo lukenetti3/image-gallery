@@ -35,6 +35,10 @@ h3 {
   width: 100%;
 }
 
+.grid-container > img:hover {
+  cursor: pointer;
+}
+
 .list-container {
   display: block;
   text-align: center;
@@ -42,6 +46,10 @@ h3 {
 
 .list-container > img {
   width: 60%;
+}
+
+.list-conatiner > img:hover {
+  cursor: pointer;
 }
 
 .modal {
@@ -69,6 +77,10 @@ h3 {
   top: 50px;
   right: 50px;
   color: white;
+}
+
+.close:hover {
+  cursor: pointer;
 }
 
 button {
