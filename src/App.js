@@ -29,8 +29,6 @@ function App() {
         perPage: 10,
       })
       .then((result) => {
-        console.log("Current photos: " + photos)
-        console.log("New photos: " + result.response.results)
         setPhotos([...photos, ...result.response.results])
         setPageNum((prevNum) => prevNum + 1)
       })
@@ -43,13 +41,13 @@ function App() {
     setCategory(item)
     setPageNum(1)
     setPhotos([])
+    setTimeout(() => {
+      console.log(item)
+    }, 500)
   }
 
   window.onscroll = function () {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-      console.log("This is window height: " + window.innerHeight)
-      console.log("This is the pageYOffest: " + window.pageYOffset)
-      console.log("This is the offsetHeight: " + document.body.offsetHeight)
       loadPhotos()
     }
   }
@@ -84,10 +82,10 @@ function App() {
           Pets
         </button>
         <button
-          onClick={() => loadCategory("instruments")}
+          onClick={() => loadCategory("nature")}
           className='category-selectors'
         >
-          Instruments
+          Nature
         </button>
         <button
           onClick={() => loadCategory("cars")}
@@ -102,12 +100,18 @@ function App() {
         <div className={isGridView ? "grid-container" : "list-container"}>
           {photos.map((photo) => {
             return (
-              <img
-                src={photo.urls.full}
-                alt={photo.alt_description}
-                key={photo.id}
-                onClick={() => openLightbox(photo)}
-              />
+              <div
+                className={
+                  photo.width > photo.height ? "landscape" : "portrait"
+                }
+              >
+                <img
+                  src={photo.urls.full}
+                  alt={photo.alt_description}
+                  key={photo.id}
+                  onClick={() => openLightbox(photo)}
+                />
+              </div>
             )
           })}
         </div>
