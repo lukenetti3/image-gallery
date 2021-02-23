@@ -11,17 +11,13 @@ function App() {
   const [pageNum, setPageNum] = useState(1)
   const [isGridView, setIsGridView] = useState(true)
   const [category, setCategory] = useState("pets")
+  const [bottomOfPage, setBottomOfPage] = useState(false)
 
   const api = createApi({
     accessKey: "c998EbR5HC_BTOhQ8PPRUBF30o30HM50e-Zw0HPt4Z4",
   })
 
   useEffect(() => {
-    loadPhotos()
-  }, [])
-
-  function loadPhotos() {
-    console.log(category)
     api.search
       .getPhotos({
         query: category,
@@ -30,25 +26,30 @@ function App() {
       })
       .then((result) => {
         setPhotos([...photos, ...result.response.results])
-        setPageNum((prevNum) => prevNum + 1)
       })
       .catch(() => {
         console.log("something broke")
       })
-  }
+  }, [pageNum])
 
   function loadCategory(item) {
-    setCategory(item)
-    setPageNum(1)
+    setBottomOfPage(true)
     setPhotos([])
-    setTimeout(() => {
-      console.log(item)
-    }, 500)
+    setPageNum((prevNum) => prevNum + 1)
+    setCategory(item)
+  }
+
+  function reachedBottom() {
+    setBottomOfPage(false)
+    setPageNum((prevNum) => prevNum + 1)
   }
 
   window.onscroll = function () {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-      loadPhotos()
+      setBottomOfPage(true)
+      if (bottomOfPage) {
+        reachedBottom()
+      }
     }
   }
 
@@ -65,7 +66,16 @@ function App() {
           onClick={() => setIsModal(false)}
           size={"3em"}
         />
-        <img className='modal-img' src={photo.urls.full} alt='' />
+        <div className='user-content'>
+          <p>{`Created by: ${photo.user.name}`}</p>
+        </div>
+        <img
+          className={
+            photo.width > photo.height ? "modal-landscape" : "modal-portrait"
+          }
+          src={photo.urls.full}
+          alt={photos.alt_description}
+        />
       </div>
     )
   }
@@ -99,14 +109,16 @@ function App() {
         </button>
         <div className={isGridView ? "grid-container" : "list-container"}>
           {photos.map((photo) => {
+            console.log(photo.created_at)
             return (
               <div
                 className={
                   photo.width > photo.height ? "landscape" : "portrait"
                 }
+                key={photo.blur_hash}
               >
                 <img
-                  src={photo.urls.full}
+                  src={photo.urls.small}
                   alt={photo.alt_description}
                   key={photo.id}
                   onClick={() => openLightbox(photo)}

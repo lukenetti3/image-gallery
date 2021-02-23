@@ -3,10 +3,7 @@ function Header() {
     <div className='hero-background'>
       <div className='hero-container'>
         <h1>Image Gallery App</h1>
-        <p>
-          Welcome to the Image gallery app. You can select a category below and
-          even toggle list or grid view.
-        </p>
+        <p>Welcome to the image gallery. Select a category.</p>
       </div>
     </div>
   )

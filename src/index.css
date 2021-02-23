@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -15,6 +17,8 @@ code {
 h1,
 h2,
 h3 {
+  font-family: Lobster;
+  font-size: 4rem;
   margin: 0;
 }
 
@@ -37,7 +41,7 @@ h3 {
   object-fit: cover;
 }
 
-.grid-container > img:hover {
+.grid-container > div > img:hover {
   cursor: pointer;
 }
 
@@ -58,7 +62,7 @@ h3 {
   width: 60%;
 }
 
-.list-conatiner > img:hover {
+.list-conatiner > div > img:hover {
   cursor: pointer;
 }
 
@@ -75,11 +79,31 @@ h3 {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-.modal-img {
+.modal-landscape {
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
+}
+
+.modal-portrait {
+  margin: auto;
+  display: block;
+  height: 80%;
+  max-height: 600px;
+}
+
+.user-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.user-content > p {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .close {
@@ -131,4 +155,11 @@ button:hover {
 
 .category-selectors {
   margin: 0 1rem 2rem 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .hero-container {
+    width: 92%;
+    padding-top: 0;
+  }
 }
