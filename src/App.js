@@ -14,7 +14,7 @@ function App() {
   const [bottomOfPage, setBottomOfPage] = useState(false)
 
   const api = createApi({
-    accessKey: process.env.UNSPLASH_ACCESS_KEY,
+    accessKey: process.env.REACT_APP_KEY,
   })
 
   useEffect(() => {
