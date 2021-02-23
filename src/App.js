@@ -10,7 +10,7 @@ function App() {
   const [modalImage, setModalImage] = useState("")
   const [pageNum, setPageNum] = useState(1)
   const [isGridView, setIsGridView] = useState(true)
-  const [category, setCategory] = useState("pets")
+  const [category, setCategory] = useState("nature")
   const [bottomOfPage, setBottomOfPage] = useState(false)
 
   const api = createApi({
