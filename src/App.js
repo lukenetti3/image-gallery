@@ -14,7 +14,7 @@ function App() {
   const [bottomOfPage, setBottomOfPage] = useState(false)
 
   const api = createApi({
-    accessKey: process.env.ACCESS_KEY,
+    accessKey: process.env.UNSPLASH_ACCESS_KEY,
   })
 
   useEffect(() => {
@@ -109,7 +109,6 @@ function App() {
         </button>
         <div className={isGridView ? "grid-container" : "list-container"}>
           {photos.map((photo) => {
-            console.log(photo.created_at)
             return (
               <div
                 className={
